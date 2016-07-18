@@ -38,7 +38,18 @@ function handleError(res, reason, message, code) {
   console.log("ERROR: " + reason);
   res.status(code || 500).json({"error": message});
 }
+app.get("/locations", function(req, res) {
 
+  // find all contacts and return them as an array
+  db.collection(LOCATION_COLLECTION).find({}).toArray(function(err, docs) {
+    if (err) {
+      handleError(res, err.message, "Failed to get places.");
+    } else {
+      res.status(200).json(docs);
+    }
+  });
+
+});
 
 app.post("/locations", function(req, res) {
 
@@ -52,4 +63,33 @@ app.post("/locations", function(req, res) {
       res.status(201).json(doc);
     }
   });
+});
+
+app.delete("/locations/:name", function(req, res) {
+
+  db.collection(LOCATION_COLLECTION).remove({name: req.params.name}, function(err, result) {
+    if (err) {
+      handleError(res, err.message, "Failed to delete contact");
+    } else {
+      res.status(204).end();
+    }
+  });
+
+});
+
+
+app.put('/locations/:name', function(request, response) {
+  //console.log("request.body", request.body);
+  //console.log("request.params:", request.params);
+
+  var old = {name: request.body.name};
+  var newComment = request.body.comment;
+
+  //update
+  db.collection(LOCATION_COLLECTION).update(old, { $set: {comment: newComment}}, { upsert: true }, function(err, result){
+    if (err) {
+      handleError(response, err.message, "Failed to update character");
+    }
+  });
+
 });

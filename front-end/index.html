@@ -17,7 +17,22 @@
     </form>
     <div class="map" id="map">
     </div>
+    <div class="show-all"></div>
     <button type="button" name="button" id="show-all-btn">Show all</button>
+    <button type="button" name="button" id="delete-btn">Delete</button>
+    <button type="button" name="button" id="update-btn">Update</button>
+    <div class="delete">
+        <label for="name">Name</label>
+        <input type="text" name="name" value="" id="delete-value" placeholder="delete">
+        <button type="button" name="button" id="delete-value-btn">Delete</button>
+    </div>
+    <div class="update">
+      <label for="name">Name: </label>
+      <input type="text" name="name" value="" id="update-name" placeholder="update name">
+      <label for="comment">Comment</label>
+      <textarea  name="name" value="" id="comment-value" placeholder="leave comment here"></textarea>
+      <button type="button" name="button" id="comment-value-btn">Comment</button>
+    </div>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAA3l2tw8FvuG2I1IiQALnVE7cKXZ1-SQ&libraries=places"
     async defer></script>
   </body>

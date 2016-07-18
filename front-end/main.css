@@ -3,3 +3,9 @@
   width: 30%;
   border: 3px solid red;
 }
+.delete {
+  display: none;
+}
+.update {
+  display: none; 
+}

@@ -2,6 +2,11 @@ document.addEventListener("DOMContentLoaded", function(){
 console.log("main.js loaded");
 
 var searchBtn = document.querySelector("#search-location");
+var showAllBtn = document.querySelector("#show-all-btn");
+var deleteBtn = document.querySelector("#delete-btn");
+var deleteValueBtn = document.querySelector("#delete-value-btn");
+var updateBtn = document.querySelector("#update-btn");
+var updateValueBtn = document.querySelector("#comment-value-btn");
 
 var apiPublicKeyQuery = "?key=" + API_KEY;
 var map;
@@ -35,6 +40,23 @@ function success(pos) {
 }
 function error(){
 
+}
+
+function showAllPlaces(places){
+  var div = document.querySelector(".show-all");
+  div.innerHTML = "";
+  for(var i = 0; i < places.length; i++){
+    var divPlace = document.createElement("div");
+    divPlace.classList.add("place");
+    var p = document.createElement("p");
+    p.innerHTML = "Name: " + places[i].name + " " + "Address: " + places[i].address;
+    if(places[i].comment){
+      p.innerHTML += " Comment: " + places[i].comment;
+    }
+    divPlace.appendChild(p);
+    div.appendChild(divPlace);
+
+  }
 }
 
 function callback(results, status) {
@@ -76,6 +98,59 @@ searchBtn.addEventListener("click", function(){
   userInput = document.querySelector("#location-text").value;
 });
 
+showAllBtn.addEventListener("click", function(){
+  $.get('http://localhost:3000/locations', function(response){
+      showAllPlaces(response);
+    });
+})
 
+deleteBtn.addEventListener("click", function(){
+  var deleteDiv = document.querySelector(".delete");
+  deleteDiv.style.display = "flex";
+})
 
+deleteValueBtn.addEventListener("click", function(){
+  var deleteValue = document.querySelector("#delete-value").value;
+  $.ajax({
+      url: 'http://localhost:3000/locations/' + deleteValue,
+      type: 'DELETE',
+      success: 'http://localhost:3000/locations/' || $.noop,
+      error: $.noop
+    }).done(function(data){
+      var p = document.createElement("p");
+      p.style.color = "red";
+      p.innerHTML = "Place as been deleted";
+      document.body.appendChild(p);
+    });
+
+  $
+})
+
+updateBtn.addEventListener("click", function(){
+  var updateDiv = document.querySelector(".update");
+  updateDiv.style.display = "flex";
+})
+
+updateValueBtn.addEventListener("click", function(){
+  var updateNameValue = document.querySelector("#update-name").value;
+  var updateComment = document.querySelector("#comment-value").value;
+
+  var data = {
+        name: updateNameValue,
+        comment: updateComment
+      }
+  $.ajax({
+       url: 'http://localhost:3000/locations/'  + updateNameValue,
+       dataType: 'json',
+       method: 'put',
+       data: data
+     }).done(function(response){
+       var results = document.querySelector(".results");
+       var p = document.createElement("p");
+       p.style.color = "white";
+       p.innerHTML = "Place has been updated";
+       results.appendChild(p);
+       results.style.display = "flex";
+     });
+})
 });
