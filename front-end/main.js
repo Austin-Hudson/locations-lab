@@ -59,6 +59,7 @@ function showAllPlaces(places){
   }
 }
 
+
 function callback(results, status) {
   if (status == google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) {
@@ -107,6 +108,8 @@ showAllBtn.addEventListener("click", function(){
 deleteBtn.addEventListener("click", function(){
   var deleteDiv = document.querySelector(".delete");
   deleteDiv.style.display = "flex";
+  var updateDiv = document.querySelector(".update");
+  updateDiv.style.display = "none";
 })
 
 deleteValueBtn.addEventListener("click", function(){
@@ -129,6 +132,8 @@ deleteValueBtn.addEventListener("click", function(){
 updateBtn.addEventListener("click", function(){
   var updateDiv = document.querySelector(".update");
   updateDiv.style.display = "flex";
+  var deleteDiv = document.querySelector(".delete");
+  deleteDiv.style.display = "none";
 })
 
 updateValueBtn.addEventListener("click", function(){
