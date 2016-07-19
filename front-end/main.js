@@ -100,14 +100,18 @@ searchBtn.addEventListener("click", function(){
 });
 
 showAllBtn.addEventListener("click", function(){
+  var results = document.querySelector(".results");
+  results.innerHTML = "";
   $.get('http://localhost:3000/locations', function(response){
       showAllPlaces(response);
     });
 })
 
 deleteBtn.addEventListener("click", function(){
+  var results = document.querySelector(".results");
+  results.innerHTML = "";
   var deleteDiv = document.querySelector(".delete");
-  deleteDiv.style.display = "flex";
+  deleteDiv.style.display = "block";
   var updateDiv = document.querySelector(".update");
   updateDiv.style.display = "none";
 })
@@ -120,18 +124,21 @@ deleteValueBtn.addEventListener("click", function(){
       success: 'http://localhost:3000/locations/' || $.noop,
       error: $.noop
     }).done(function(data){
+      var results = document.querySelector(".results");
       var p = document.createElement("p");
       p.style.color = "red";
       p.innerHTML = "Place as been deleted";
-      document.body.appendChild(p);
+      results.appendChild(p);
     });
 
   $
 })
 
 updateBtn.addEventListener("click", function(){
+  var results = document.querySelector(".results");
+  results.innerHTML = "";
   var updateDiv = document.querySelector(".update");
-  updateDiv.style.display = "flex";
+  updateDiv.style.display = "block";
   var deleteDiv = document.querySelector(".delete");
   deleteDiv.style.display = "none";
 })

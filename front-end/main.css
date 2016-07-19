@@ -1,11 +1,36 @@
 #map {
   height: 500px;
   width: 30%;
-  border: 3px solid red;
 }
 .delete {
-  display: none;
+  display: none; 
+  margin: 0 auto;
+  text-align: center;
 }
 .update {
   display: none;
+  margin: 0 auto;
+  text-align: center;
+}
+.map{
+  margin: 0 auto;
+  display block;
+}
+
+.show-all, .delete, .update {
+  margin: 0 auto;
+}
+.button-class {
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+}
+h1 {
+  text-align: center;
+}
+
+form {
+  margin: 0 auto;
+  display: block;
+  text-align: center;
 }
