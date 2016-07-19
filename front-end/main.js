@@ -8,16 +8,14 @@ var deleteValueBtn = document.querySelector("#delete-value-btn");
 var updateBtn = document.querySelector("#update-btn");
 var updateValueBtn = document.querySelector("#comment-value-btn");
 
-var apiPublicKeyQuery = "?key=" + API_KEY;
 var map;
-var longitude, latitude; //GA'S LOCATION
+var longitude, latitude;
 var currentLocation;
 var userInput;
 var service;
 var infoWindow;
 
 function initMap() {
-  // GA's location
   currentLocation =  new google.maps.LatLng(latitude,longitude);
   map = new google.maps.Map(document.getElementById('map'), {
     center: currentLocation,
@@ -39,7 +37,10 @@ function success(pos) {
   initMap();
 }
 function error(){
-
+  var results = document.querySelector(".results");
+  var p = document.createElement("p");
+  p.innerHTML = "An error has occured.";
+  results.appendChild(p);
 }
 
 function showAllPlaces(places){
@@ -121,13 +122,13 @@ deleteValueBtn.addEventListener("click", function(){
   $.ajax({
       url: 'http://localhost:3000/locations/' + deleteValue,
       type: 'DELETE',
-      success: 'http://localhost:3000/locations/' || $.noop,
-      error: $.noop
+      success: 'http://localhost:3000/locations/',
+      error: error
     }).done(function(data){
       var results = document.querySelector(".results");
       var p = document.createElement("p");
       p.style.color = "red";
-      p.innerHTML = "Place as been deleted";
+      p.innerHTML = "Place has been deleted";
       results.appendChild(p);
     });
 
@@ -159,7 +160,7 @@ updateValueBtn.addEventListener("click", function(){
      }).done(function(response){
        var results = document.querySelector(".results");
        var p = document.createElement("p");
-       p.style.color = "white";
+       p.style.color = "red";
        p.innerHTML = "Place has been updated";
        results.appendChild(p);
        results.style.display = "flex";
